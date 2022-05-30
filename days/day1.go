@@ -1,8 +1,8 @@
-package day1
+package days
 
 import "fmt"
 
-func getInput() []int {
+func GetInput() []int {
 	inputs := []int{150,
 		152,
 		155,
@@ -2008,8 +2008,8 @@ func getInput() []int {
 
 const quite = true
 
-func DayOne() {
-	input := getInput()
+func DayOneP1() {
+	input := GetInput()
 	count := 0
 
 	for i := 0; i < len(input)-1; i++ {
@@ -2017,6 +2017,27 @@ func DayOne() {
 			fmt.Println(input[i], " < ", input[i+1])
 		}
 		if input[i] < input[i+1] {
+			count += 1
+		}
+	}
+
+	fmt.Println("Increase count: ", count)
+}
+
+func DayOneP2() {
+	input := GetInput()
+	count := 0
+
+	quite := true
+
+	for i := 0; i < len(input)-3; i++ {
+		groupOne := input[i] + input[i+1] + input[i+2]
+		groupTwo := input[i+3] + input[i+1] + input[i+2]
+		if !quite {
+			fmt.Println(groupOne, " < ", groupTwo)
+		}
+
+		if groupOne < groupTwo {
 			count += 1
 		}
 	}
