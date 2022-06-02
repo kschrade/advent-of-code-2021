@@ -11,7 +11,7 @@ func makeCommand(d string, u int) Command {
 	return Command{direction: d, units: u}
 }
 
-func getInput() []Command {
+func getInput2() []Command {
 	var commands []Command
 
 	commands = append(commands, makeCommand("forward", 2))
@@ -1019,7 +1019,7 @@ func getInput() []Command {
 }
 
 func DayTwoP1() {
-	input := getInput()
+	input := getInput2()
 
 	hor := 0
 	vert := 0
@@ -1038,7 +1038,7 @@ func DayTwoP1() {
 }
 
 func DayTwoP2() {
-	input := getInput()
+	input := getInput2()
 
 	hor := 0
 	vert := 0

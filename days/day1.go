@@ -2,7 +2,7 @@ package days
 
 import "fmt"
 
-func GetInput() []int {
+func getInput1() []int {
 	inputs := []int{150,
 		152,
 		155,
@@ -2009,7 +2009,7 @@ func GetInput() []int {
 const quite = true
 
 func DayOneP1() {
-	input := GetInput()
+	input := getInput1()
 	count := 0
 
 	for i := 0; i < len(input)-1; i++ {
@@ -2025,7 +2025,7 @@ func DayOneP1() {
 }
 
 func DayOneP2() {
-	input := GetInput()
+	input := getInput1()
 	count := 0
 
 	quite := true
