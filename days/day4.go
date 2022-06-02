@@ -656,9 +656,89 @@ func getInput4() bingoGame {
 	return bingoGame{boards: allBoards, callOrder: rollOrder}
 }
 
+func markSelectedSpot(board [][]bingoSpot, selectedNumber int) [][]bingoSpot {
+	for i, row := range board {
+		for j, spot := range row {
+			if spot.number == selectedNumber {
+				board[i][j].rolled = true
+			}
+		}
+	}
+
+	return board
+}
+
+func areAllTrue(arr []bool) bool {
+	for _, val := range arr {
+		if !val {
+			return val
+		}
+	}
+
+	return true
+}
+
+func checkBoard(board [][]bingoSpot) int {
+	trials := [][]bool{{}, {}, {}, {}, {}, {}, {}, {}, {}, {}}
+
+	for i, row := range board {
+		for j, spot := range row {
+			trials[i] = append(trials[i], spot.rolled)
+			trials[j+5] = append(trials[j+5], spot.rolled)
+		}
+	}
+
+	isWinner := false
+
+	for _, trial := range trials {
+		if areAllTrue(trial) {
+			isWinner = true
+		}
+	}
+
+	if !isWinner {
+		return -1
+	}
+
+	winningVal := 0
+	for _, row := range board {
+		for _, spot := range row {
+			if !spot.rolled {
+				winningVal += spot.number
+			}
+		}
+	}
+
+	return winningVal
+}
+
 func DayFourP1() {
 	input := getInput4()
-	fmt.Print(input)
+	// bestBoard := [][]bingoSpot{}
+
+	// for _, board := range input.boards {
+
+	// }
+
+	// now just loop this with each board and short circut if it goes past a different board
+
+	test := input.boards[0]
+	for i, roll := range input.callOrder {
+		test = markSelectedSpot(test, roll)
+		checkVal := checkBoard(test)
+		if checkVal >= 0 {
+			fmt.Println("board was solved on the", i, "th move. The last rolled number was: ", roll)
+			fmt.Println("")
+			fmt.Print(test)
+			fmt.Println("")
+			fmt.Println("last roll: ", roll)
+			fmt.Println("sum of row: ", checkVal)
+			fmt.Println("end val is: ", roll*checkVal)
+			break
+		}
+
+	}
+
 }
 
 func DayFourP2() {
