@@ -714,33 +714,58 @@ func checkBoard(board [][]bingoSpot) int {
 
 func DayFourP1() {
 	input := getInput4()
-	// bestBoard := [][]bingoSpot{}
+	bestBoard := [][]bingoSpot{}
+	lowestSolve := 9999
+	solveScore := 0
 
-	// for _, board := range input.boards {
-
-	// }
-
-	// now just loop this with each board and short circut if it goes past a different board
-
-	test := input.boards[0]
-	for i, roll := range input.callOrder {
-		test = markSelectedSpot(test, roll)
-		checkVal := checkBoard(test)
-		if checkVal >= 0 {
-			fmt.Println("board was solved on the", i, "th move. The last rolled number was: ", roll)
-			fmt.Println("")
-			fmt.Print(test)
-			fmt.Println("")
-			fmt.Println("last roll: ", roll)
-			fmt.Println("sum of row: ", checkVal)
-			fmt.Println("end val is: ", roll*checkVal)
-			break
+	for _, board := range input.boards {
+		for i, roll := range input.callOrder {
+			board = markSelectedSpot(board, roll)
+			checkVal := checkBoard(board)
+			if checkVal >= 0 {
+				if i < lowestSolve {
+					lowestSolve = i
+					bestBoard = board
+					solveScore = roll * checkVal
+				}
+				break
+			}
+			if i >= lowestSolve {
+				break
+			}
 		}
-
 	}
 
+	fmt.Println("part one")
+	fmt.Println("best board: ", bestBoard)
+	fmt.Println("solved in: ", lowestSolve)
+	fmt.Println("solve score: ", solveScore)
 }
 
 func DayFourP2() {
+	input := getInput4()
+	bestBoard := [][]bingoSpot{}
+	lowestSolve := 0
+	solveScore := 0
+
+	for _, board := range input.boards {
+		for i, roll := range input.callOrder {
+			board = markSelectedSpot(board, roll)
+			checkVal := checkBoard(board)
+			if checkVal >= 0 {
+				if i > lowestSolve {
+					lowestSolve = i
+					bestBoard = board
+					solveScore = roll * checkVal
+				}
+				break
+			}
+		}
+	}
+
+	fmt.Println("part two")
+	fmt.Println("best board: ", bestBoard)
+	fmt.Println("solved in: ", lowestSolve)
+	fmt.Println("solve score: ", solveScore)
 
 }
