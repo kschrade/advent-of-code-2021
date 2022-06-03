@@ -39,4 +39,12 @@ func main() {
 	days.DayFourP2()
 	elapsed = time.Since(start)
 	fmt.Println("day 4 code took:", elapsed)
+
+	start = time.Now()
+	fmt.Println("")
+	fmt.Println("day 5")
+	days.DayFiveP1()
+	days.DayFiveP2()
+	elapsed = time.Since(start)
+	fmt.Println("day 5 code took:", elapsed)
 }
