@@ -1,6 +1,9 @@
 package days
 
-import "fmt"
+import (
+	"fmt"
+	"math"
+)
 
 type cord struct {
 	x int
@@ -557,8 +560,6 @@ func DayFiveP1() {
 				smaller = smoke.start.y
 			}
 
-			fmt.Println("smaller: ", smaller, " larger: ", larger, " point: ", smoke)
-
 			for i := smaller; i <= larger; i++ {
 				board[smoke.start.x][i]++
 			}
@@ -579,9 +580,75 @@ func DayFiveP1() {
 	// 	fmt.Println(row)
 	// }
 
-	fmt.Println(count)
+	fmt.Println("Count: ", count)
 }
 
 func DayFiveP2() {
+	input := getInput5()
+	board := [][]int{}
 
+	for i := 0; i < 1000; i++ {
+		row := []int{}
+		for j := 0; j < 1000; j++ {
+			row = append(row, 0)
+		}
+		board = append(board, row)
+	}
+
+	for _, smoke := range input {
+		smaller, larger := 0, 0
+		if smoke.start.y == smoke.end.y {
+
+			if smoke.start.x > smoke.end.x {
+				smaller = smoke.end.x
+				larger = smoke.start.x
+			} else {
+				larger = smoke.end.x
+				smaller = smoke.start.x
+			}
+
+			for i := smaller; i <= larger; i++ {
+				board[i][smoke.end.y]++
+			}
+
+		} else if smoke.start.x == smoke.end.x {
+			if smoke.start.y > smoke.end.y {
+				smaller = smoke.end.y
+				larger = smoke.start.y
+			} else {
+				larger = smoke.end.y
+				smaller = smoke.start.y
+			}
+
+			for i := smaller; i <= larger; i++ {
+				board[smoke.start.x][i]++
+			}
+		}
+
+		spreadX, spreadY := math.Abs(float64(smoke.end.x-smoke.start.x)), math.Abs(float64(smoke.end.y-smoke.start.y))
+
+		if spreadX == spreadY {
+			if smoke.start.y < smoke.end.y {
+
+			} else {
+
+			}
+		}
+	}
+
+	count := 0
+
+	for _, row := range board {
+		for _, cell := range row {
+			if cell >= 2 {
+				count++
+			}
+		}
+	}
+
+	// for _, row := range board {
+	// 	fmt.Println(row)
+	// }
+
+	fmt.Println(count)
 }
