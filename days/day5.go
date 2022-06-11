@@ -2,6 +2,7 @@ package days
 
 import (
 	"fmt"
+	"math"
 )
 
 type cord struct {
@@ -559,8 +560,6 @@ func DayFiveP1() {
 				smaller = smoke.start.y
 			}
 
-			fmt.Println("smaller: ", smaller, " larger: ", larger, " point: ", smoke)
-
 			for i := smaller; i <= larger; i++ {
 				board[smoke.start.x][i]++
 			}
@@ -597,8 +596,8 @@ func DayFiveP2() {
 	}
 
 	for _, smoke := range input {
+		smaller, larger := 0, 0
 		if smoke.start.y == smoke.end.y {
-			smaller, larger := 0, 0
 
 			if smoke.start.x > smoke.end.x {
 				smaller = smoke.end.x
@@ -613,8 +612,6 @@ func DayFiveP2() {
 			}
 
 		} else if smoke.start.x == smoke.end.x {
-			smaller, larger := 0, 0
-
 			if smoke.start.y > smoke.end.y {
 				smaller = smoke.end.y
 				larger = smoke.start.y
@@ -630,22 +627,13 @@ func DayFiveP2() {
 			}
 		}
 
-		xSpread := (smoke.start.x - smoke.end.x)
-		ySpread := smoke.start.y - smoke.end.y
+		spreadX, spreadY := math.Abs(float64(smoke.end.x-smoke.start.x)), math.Abs(float64(smoke.end.y-smoke.start.y))
 
-		if xSpread < 0 {
-			xSpread = xSpread * -1
-		}
+		if spreadX == spreadY {
+			if smoke.start.y < smoke.end.y {
 
-		if ySpread < 0 {
-			ySpread = ySpread * -1
-		}
+			} else {
 
-		if xSpread == ySpread {
-			smallerX, largerX := 0, 0, 
-
-			if smoke.start.x < smoke.end.x {
-				
 			}
 		}
 	}
