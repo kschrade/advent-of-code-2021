@@ -1,6 +1,8 @@
 package days
 
-import "fmt"
+import (
+	"fmt"
+)
 
 type cord struct {
 	x int
@@ -579,9 +581,88 @@ func DayFiveP1() {
 	// 	fmt.Println(row)
 	// }
 
-	fmt.Println(count)
+	fmt.Println("Part 1: ", count)
 }
 
 func DayFiveP2() {
+	input := getInput5()
+	board := [][]int{}
 
+	for i := 0; i < 1000; i++ {
+		row := []int{}
+		for j := 0; j < 1000; j++ {
+			row = append(row, 0)
+		}
+		board = append(board, row)
+	}
+
+	for _, smoke := range input {
+		if smoke.start.y == smoke.end.y {
+			smaller, larger := 0, 0
+
+			if smoke.start.x > smoke.end.x {
+				smaller = smoke.end.x
+				larger = smoke.start.x
+			} else {
+				larger = smoke.end.x
+				smaller = smoke.start.x
+			}
+
+			for i := smaller; i <= larger; i++ {
+				board[i][smoke.end.y]++
+			}
+
+		} else if smoke.start.x == smoke.end.x {
+			smaller, larger := 0, 0
+
+			if smoke.start.y > smoke.end.y {
+				smaller = smoke.end.y
+				larger = smoke.start.y
+			} else {
+				larger = smoke.end.y
+				smaller = smoke.start.y
+			}
+
+			fmt.Println("smaller: ", smaller, " larger: ", larger, " point: ", smoke)
+
+			for i := smaller; i <= larger; i++ {
+				board[smoke.start.x][i]++
+			}
+		}
+
+		xSpread := (smoke.start.x - smoke.end.x)
+		ySpread := smoke.start.y - smoke.end.y
+
+		if xSpread < 0 {
+			xSpread = xSpread * -1
+		}
+
+		if ySpread < 0 {
+			ySpread = ySpread * -1
+		}
+
+		if xSpread == ySpread {
+			smallerX, largerX := 0, 0, 
+
+			if smoke.start.x < smoke.end.x {
+				
+			}
+		}
+	}
+
+	count := 0
+
+	for _, row := range board {
+		for _, cell := range row {
+			if cell >= 2 {
+				count++
+			}
+		}
+	}
+
+	// for _, row := range board {
+	// 	fmt.Println(row)
+	// }
+
+	fmt.Println("Part 1: ", count)
 }
