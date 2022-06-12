@@ -620,8 +620,6 @@ func DayFiveP2() {
 				smaller = smoke.start.y
 			}
 
-			fmt.Println("smaller: ", smaller, " larger: ", larger, " point: ", smoke)
-
 			for i := smaller; i <= larger; i++ {
 				board[smoke.start.x][i]++
 			}
@@ -630,10 +628,36 @@ func DayFiveP2() {
 		spreadX, spreadY := math.Abs(float64(smoke.end.x-smoke.start.x)), math.Abs(float64(smoke.end.y-smoke.start.y))
 
 		if spreadX == spreadY {
-			if smoke.start.y < smoke.end.y {
+			startIsLeftMost := true
 
+			if smoke.start.x > smoke.end.x {
+				startIsLeftMost = false
+			}
+
+			lineGoesUp := true
+
+			if startIsLeftMost {
+				if smoke.start.y > smoke.end.y {
+					lineGoesUp = false
+				}
 			} else {
+				if smoke.end.y > smoke.start.y {
+					lineGoesUp = false
+				}
+			}
 
+			if startIsLeftMost {
+				if lineGoesUp {
+					markLineUp(smoke.start, smoke.end, board)
+				} else {
+					markLineDown(smoke.start, smoke.end, board)
+				}
+			} else {
+				if lineGoesUp {
+					markLineUp(smoke.end, smoke.start, board)
+				} else {
+					markLineDown(smoke.end, smoke.start, board)
+				}
 			}
 		}
 	}
@@ -652,5 +676,25 @@ func DayFiveP2() {
 	// 	fmt.Println(row)
 	// }
 
-	fmt.Println("Part 1: ", count)
+	fmt.Println("Part 2: ", count)
+}
+
+func markLineUp(start cord, end cord, board [][]int) {
+	startX, startY := start.x, start.y
+
+	for startX <= end.x {
+		board[startX][startY]++
+		startX++
+		startY++
+	}
+}
+
+func markLineDown(start cord, end cord, board [][]int) {
+	startX, startY := start.x, start.y
+
+	for startX <= end.x {
+		board[startX][startY]++
+		startX++
+		startY--
+	}
 }
